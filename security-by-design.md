@@ -17,6 +17,33 @@ The creation of a relationship is initiated by Pirum staff after asynchronous co
 As part of the work involved in building a new product, you have been tasked in creating a system that is secure by design, notably:
 
 - at any point in time, it must be guaranteed that users (including Pirum staff) can only ever access and manipulate data up to their security clearance
-- at any point in time, any software component or module is guaranteed to only access and manipulate data in a way that does not break tenant walls, except when explicitly permitted
+- at any point in time, any software component or module is guaranteed to only access and manipulate data in a way that does not break tenant walls, except when explicitly permitted via relationships
 
 Design a multi-tenant architecture that can serve multiple financial institutions, abides by the constraints detailed above and can be used as a template for future products.
+
+## Requirements
+
+The system you come up with must respect the following requirements:
+
+### The 3 Ws
+
+The output of a security check is binary: either access is granted or denied. The check itself is parameterised by three properties:
+
+- who: the _principal_ trying to perform the action
+- what: the _action_ that is being performed
+- where: the _resource_ that is being manipulated
+
+
+### Low latency
+
+As a user request makes its way through our systems, it will cross multiple boundaries and generate many security checks. Therefore, it is vital that the impact of those is virtually zero and does not ruin the user's experience.
+
+Similarly, backend tasks processing client data have a high throughput expectations and increased latency of security checks would have a negative impact on the former.
+
+### Correctness
+
+It can be tricky sometimes to understand why access was granted or denied. The system must be able to explain a decision.
+
+### Management
+
+Our Client Services team is responsible for managing client/user access, they should be able to change the rules of the system without having to learn to read, write and build programs. Although it would be acceptable for them to have to learn a DSL such as JSON or something specific to security.
