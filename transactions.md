@@ -43,5 +43,5 @@ to define matching rules and policies as follows:
 - a matching rule is a predicate that defines a subset of all possible transactions
 - a policy is an execution strategy for a set of matching rules, which can be:
   - deny or allow by default
-  - at least <n> rules must match or all rules must match
+  - at least $n$ rules must match or all rules must match
   - a rule must not match
